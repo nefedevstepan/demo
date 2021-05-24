@@ -34,6 +34,20 @@ class Request extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return array
+     */
+    public static function ListStatus(){
+        $arr = [
+            'Новая' => 'Новая',
+            'Решена' => 'Решена',
+        ];
+        if (Yii::$app->user->can("admin")){
+            array_merge($arr,["Отклонена" => "Отклонена"]);
+        }
+        return $arr;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public static function tableName()
@@ -71,9 +85,15 @@ class Request extends \yii\db\ActiveRecord
             [['category_id', 'created_by', 'updated_by'], 'integer'],
             [['created_at'], 'safe'],
             [['status', 'name', 'before_img', 'after_img'], 'string', 'max' => 255],
-            [['imageFile1'], 'file', 'skipOnEmpty' => false, 'extensions' => "png, jpg, bmp", 'maxSize' => 10*1024*1024],
-             [['imageFile2'], 'file', 'skipOnEmpty' => TRUE, 'extensions' => "png, jpg, bmp", 'maxSize' => 10*1024*1024],
+            [['imageFile1'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, png, bmp', 'maxSize' => 10 * 1024 * 1024],
+            [['imageFile2'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, png, bmp', 'maxSize' => 10 * 1024 * 1024],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
+
+            ['imageFile2', 'required', 'when' => function($model, $attribute) {
+                return $model->status == 'Решена';
+
+            }, 'enableClientValidation' => false],
+
         ];
     }
 

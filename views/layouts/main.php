@@ -42,7 +42,7 @@ AppAsset::register($this);
 //            ['label' => 'Request', 'url' => ['/admin/request/index']],
 //            ['label' => 'Category', 'url' => ['/admin/category/index']],
             ['label' => 'Личный кабинет', 'url' => ['/site/about']],
-           ['label' => 'заявки', 'url' => ['/request/index'], 'visible'=> !Yii::$app->user->isGuest],
+           ['label' => 'заявки', 'url' => ['/front/index'], 'visible'=> !Yii::$app->user->isGuest],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Авторизация', 'url' => ['/site/login']]
             ) : (

@@ -55,5 +55,20 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
+<?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+                [
+                    'attribute' => 'category_id',
+                    'value' => 'category.name',
+                    'filter' => \yii\helpers\ArrayHelper::map(\app\modules\admin\models\Category::find()->all(), 'id', 'name'),
+                ],
+                // 'id',
+                'status',
+                'name',
+        ],
+]); ?>
 
 </div>

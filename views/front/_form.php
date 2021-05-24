@@ -25,6 +25,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'why_not')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'category_id')-> dropDownList(\yii\helpers\ArrayHelper::map(\app\modules\admin\models\Category::find()->all(), 'id', 'name' ))?>
+    <?= $form->field($model, 'status')->dropDownList(\app\modules\admin\models\Request::ListStatus())?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
